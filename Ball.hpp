@@ -1,32 +1,23 @@
 #pragma once
-#include <iostream>
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include "Player.hpp"
 
-class Player
+class Ball
 {
 public:
-	Player();
-	~Player();
-
-	enum ID
-	{
-		PlayerOne,
-		PlayerTwo
-	};
-
+	Ball();
+	~Ball();
 	void draw(sf::RenderWindow& target);
 	void setPosition(sf::Vector2f pos);
-	void setSpeed(float speed);
-	void update(const float& dt);
-	void setPlayerId(ID id);
+	void update(const float & dt, Player& playerOne, Player& playerTwo);
 	sf::FloatRect getBounds();
 
 private:
+
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
-	float m_speed;
 
-	ID m_id;
-
+	sf::Vector2f m_speed;
 };
 

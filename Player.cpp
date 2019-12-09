@@ -31,7 +31,7 @@ void Player::setSpeed(float speed)
 	m_speed = speed;
 }
 
-void Player::update(float dt)
+void Player::update(const float& dt)
 {
 	if (m_id == ID::PlayerOne)
 	{
@@ -47,7 +47,6 @@ void Player::update(float dt)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && m_sprite.getPosition().y <= 800 - m_sprite.getLocalBounds().height)
 			m_sprite.move(0, m_speed*dt);
 	}
-
 }
 
 void Player::setPlayerId(ID id)
@@ -55,7 +54,7 @@ void Player::setPlayerId(ID id)
 	m_id = id;
 }
 
-sf::FloatRect Player::getSize()
+sf::FloatRect Player::getBounds()
 {
-	return m_sprite.getLocalBounds();
+	return m_sprite.getGlobalBounds();
 }

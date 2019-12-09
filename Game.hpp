@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Background.hpp"
 #include "Player.hpp"
+#include "Ball.hpp"
 
 class Game
 {
@@ -28,6 +29,7 @@ private:
 	Background* m_background = nullptr;
 	Player* m_playerOne = nullptr;
 	Player* m_playerTwo = nullptr;
+	Ball* m_ball = nullptr;
 	
 };
 
