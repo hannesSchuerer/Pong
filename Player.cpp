@@ -58,3 +58,8 @@ sf::FloatRect Player::getBounds()
 {
 	return m_sprite.getGlobalBounds();
 }
+
+Player::ID Player::getPlayerId()
+{
+	return m_id;
+}

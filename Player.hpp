@@ -20,6 +20,7 @@ public:
 	void update(const float& dt);
 	void setPlayerId(ID id);
 	sf::FloatRect getBounds();
+	ID getPlayerId();
 
 private:
 	sf::Texture m_texture;

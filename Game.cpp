@@ -35,7 +35,7 @@ void Game::update()
 {
 	m_playerOne->update(m_dt);
 	m_playerTwo->update(m_dt);
-	m_ball->update(m_dt, *m_playerOne, *m_playerTwo);
+	m_ball->update(m_dt, m_playerOne, m_playerTwo);
 }
 
 void Game::render()
