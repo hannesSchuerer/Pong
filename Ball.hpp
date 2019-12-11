@@ -16,16 +16,12 @@ public:
 private:
 
 	void normalizeVector(sf::Vector2f& vector);
-	void checkHit(Player* player);
 
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 
-	bool m_playerOneHit = true;
-	bool m_playerTwoHit = true;
-
-	sf::Vector2f m_maxVectorUp;
-	sf::Vector2f m_maxVectorDown;
+	sf::Vector2f m_maxVectorUp = sf::Vector2f(0.71f, -0.71f);
+	sf::Vector2f m_maxVectorDown = sf::Vector2f(-0.71f, 0.71f);
 	sf::FloatRect m_hitResult;
 
 	sf::Vector2f m_direction;
