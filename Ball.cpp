@@ -1,7 +1,6 @@
 #include "Ball.hpp"
 
 Ball::Ball()
-	:m_maxVectorUp(0.32f, -0.95f)
 {
 	if (!m_texture.loadFromFile("Sprites/PongBall.png"))
 	{
@@ -46,17 +45,17 @@ void Ball::update(const float & dt, Player* playerOne, Player* playerTwo)
 		m_relativeHit = m_hitResult.top - playerOne->getBounds().top + m_sprite.getGlobalBounds().width / 2;
 		if (m_relativeHit < (113.f / 5.f) * 3.f)
 		{
-			m_direction.x *= -1.f;
 			normalizeVector(m_direction);
-			m_direction += m_maxVectorUp;
+			m_direction.x = 1.f;
+			m_direction.y += m_maxVectorUp;
 			normalizeVector(m_direction);
 			m_direction *= m_speed;
 		}
 		else
 		{
-			m_direction.x *= -1.f;
 			normalizeVector(m_direction);
-			m_direction += m_maxVectorDown;
+			m_direction.x = 1.f;
+			m_direction.y += m_maxVectorDown;
 			normalizeVector(m_direction);
 			m_direction *= m_speed;
 		}
@@ -69,17 +68,17 @@ void Ball::update(const float & dt, Player* playerOne, Player* playerTwo)
 		m_relativeHit = m_hitResult.top - playerTwo->getBounds().top + m_sprite.getGlobalBounds().width / 2;
 		if (m_relativeHit < (113.f / 5.f) * 3.f)
 		{
-			m_direction.x *= -1.f;
 			normalizeVector(m_direction);
-			m_direction += m_maxVectorUp;
+			m_direction.x = -1.f;
+			m_direction.y += m_maxVectorUp;
 			normalizeVector(m_direction);
 			m_direction *= m_speed;
 		}
 		else
 		{
-			m_direction.x *= -1.f;
 			normalizeVector(m_direction);
-			m_direction += m_maxVectorDown;
+			m_direction.x = -1.f;
+			m_direction.y += m_maxVectorDown;
 			normalizeVector(m_direction);
 			m_direction *= m_speed;
 		}

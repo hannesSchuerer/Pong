@@ -20,6 +20,7 @@ private:
 	void updateEvent();
 	void initVariables();
 
+	float m_startTime;
 	float m_dt;
 	sf::VideoMode m_videoMode;
 	sf::Clock m_clock;

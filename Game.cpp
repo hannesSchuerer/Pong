@@ -35,7 +35,9 @@ void Game::update()
 {
 	m_playerOne->update(m_dt);
 	m_playerTwo->update(m_dt);
-	m_ball->update(m_dt, m_playerOne, m_playerTwo);
+	m_startTime += m_dt;
+	if(m_startTime >= 3)
+		m_ball->update(m_dt, m_playerOne, m_playerTwo);
 }
 
 void Game::render()

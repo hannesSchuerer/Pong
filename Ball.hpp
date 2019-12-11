@@ -20,12 +20,12 @@ private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 
-	sf::Vector2f m_maxVectorUp = sf::Vector2f(0.71f, -0.71f);
-	sf::Vector2f m_maxVectorDown = sf::Vector2f(-0.71f, 0.71f);
+	float m_maxVectorUp = -0.71f;
+	float m_maxVectorDown = 0.71f;
 	sf::FloatRect m_hitResult;
 
 	sf::Vector2f m_direction;
-	float m_speed = 400.f;
+	const float m_speed = 800.f;
 	float m_relativeHit;
 };
 
