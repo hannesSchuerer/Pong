@@ -14,10 +14,7 @@ Game::Game()
 Game::~Game()
 {
 	delete m_window;
-	delete m_background;
-	delete m_playerOne;
-	delete m_playerTwo;
-	delete m_ball;
+	delete m_pvpScene;
 }
 
 void Game::run()
@@ -33,21 +30,28 @@ void Game::run()
 
 void Game::update()
 {
-	m_playerOne->update(m_dt);
-	m_playerTwo->update(m_dt);
-	m_startTime += m_dt;
-	if(m_startTime >= 3)
-		m_ball->update(m_dt, m_playerOne, m_playerTwo);
+	switch (m_sceneState)
+	{
+	case Scene::PvP:
+		m_pvpScene->update(m_dt);
+		break;
+	case Scene::Menue:
+		break;
+	}
 }
 
 void Game::render()
 {
 	m_window->clear();
 
-	m_background->draw(*m_window);
-	m_playerOne->draw(*m_window);
-	m_playerTwo->draw(*m_window);
-	m_ball->draw(*m_window);
+	switch (m_sceneState)
+	{
+	case Scene::PvP:
+		m_pvpScene->draw(*m_window);
+		break;
+	case Scene::Menue:
+		break;
+	}
 
 	m_window->display();
 }
@@ -72,18 +76,5 @@ void Game::updateEvent()
 
 void Game::initVariables()
 {
-	m_background = new Background();
-	m_playerOne = new Player();
-	m_playerTwo = new Player();
-	m_ball = new Ball();
-
-	m_playerOne->setPlayerId(Player::ID::PlayerOne);
-	m_playerOne->setPosition(sf::Vector2f(50.f, (m_videoMode.height/2)-(m_playerOne->getBounds().height/2)));
-	m_playerOne->setSpeed(500.f);
-
-	m_playerTwo->setPlayerId(Player::ID::PlayerTwo);
-	m_playerTwo->setPosition(sf::Vector2f(m_videoMode.width-50-m_playerTwo->getBounds().width, (m_videoMode.height / 2) - (m_playerOne->getBounds().height / 2)));
-	m_playerTwo->setSpeed(500.f);
-
-	m_ball->setPosition(sf::Vector2f(m_videoMode.width / 2.f, m_videoMode.height / 2.f));
+	m_pvpScene = new PvPScene(m_videoMode);
 }

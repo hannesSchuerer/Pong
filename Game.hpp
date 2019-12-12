@@ -1,9 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "Background.hpp"
-#include "Player.hpp"
-#include "Ball.hpp"
+#include "Scene.hpp"
+#include "PvPScene.hpp"
 
 class Game
 {
@@ -20,17 +19,14 @@ private:
 	void updateEvent();
 	void initVariables();
 
-	float m_startTime;
 	float m_dt;
 	sf::VideoMode m_videoMode;
 	sf::Clock m_clock;
 	sf::RenderWindow* m_window;
 	sf::Event m_event;
 
-	Background* m_background = nullptr;
-	Player* m_playerOne = nullptr;
-	Player* m_playerTwo = nullptr;
-	Ball* m_ball = nullptr;
-	
+	Scene::ID m_sceneState = Scene::PvP;
+
+	Scene* m_pvpScene;
 };
 
