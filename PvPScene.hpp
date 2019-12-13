@@ -4,6 +4,7 @@
 #include "Background.hpp"
 #include "Player.hpp"
 #include "Ball.hpp"
+#include "Text.hpp"
 
 class PvPScene : public Scene
 {
@@ -21,6 +22,11 @@ private:
 	void initScene();
 
 	float m_startTime;
+
+	bool m_firstStart = true;
+
+	Text* m_scorePlayerOne;
+	Text* m_scorePlayerTwo;
 
 	sf::VideoMode m_videoMode;
 	Background* m_background = nullptr;

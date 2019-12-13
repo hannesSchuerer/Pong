@@ -40,7 +40,40 @@ void Ball::update(const float & dt, Player* playerOne, Player* playerTwo)
 		m_direction.y *= -1;
 	}	
 
-	if (m_sprite.getGlobalBounds().intersects(playerOne->getBounds(), m_hitResult))
+	if (m_sprite.getPosition().x < -100)
+	{
+		this->scorePlayerTwo++;
+		m_ballOut = true;
+		m_direction = sf::Vector2f(1400.f/2.f, 800.f/2.f)-m_sprite.getPosition();
+		normalizeVector(m_direction);
+		m_direction *= m_speed;
+	}
+
+	if (m_sprite.getPosition().x > 1500)
+	{
+		this->scorePlayerOne++;
+		m_ballOut = true;
+		m_direction = sf::Vector2f(1400.f / 2.f, 800.f / 2.f) - m_sprite.getPosition();
+		normalizeVector(m_direction);
+		m_direction *= m_speed;
+	}
+
+	if (m_sprite.getGlobalBounds().intersects(m_middle) && m_ballOut)
+	{
+		m_sprite.setPosition(sf::Vector2f(1400.f / 2.f, 800.f / 2.f));
+		m_time += dt;
+
+		if (m_time >= 1)
+		{
+			m_time = 0;
+			m_direction.x = 1.f;
+			m_direction.y = 0.f;
+			m_direction *= m_speed;
+			m_ballOut = false;
+		}
+	}
+
+	if (m_sprite.getGlobalBounds().intersects(playerOne->getBounds(), m_hitResult) && !m_ballOut)
 	{
 		m_relativeHit = m_hitResult.top - playerOne->getBounds().top + m_sprite.getGlobalBounds().width / 2;
 		if (m_relativeHit < (113.f / 5.f) * 3.f)
@@ -63,7 +96,7 @@ void Ball::update(const float & dt, Player* playerOne, Player* playerTwo)
 	}
 		
 
-	if (m_sprite.getGlobalBounds().intersects(playerTwo->getBounds(), m_hitResult))
+	if (m_sprite.getGlobalBounds().intersects(playerTwo->getBounds(), m_hitResult) && !m_ballOut)
 	{
 		m_relativeHit = m_hitResult.top - playerTwo->getBounds().top + m_sprite.getGlobalBounds().width / 2;
 		if (m_relativeHit < (113.f / 5.f) * 3.f)
