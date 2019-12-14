@@ -2,7 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Scene.hpp"
-#include "PvPScene.hpp"
+#include "MenueScene.hpp"
+#include <stack>
 
 class Game
 {
@@ -18,15 +19,15 @@ private:
 	void updateDeltaTime();
 	void updateEvent();
 	void initVariables();
+	void initSceneData();
+	void initScene();
 
 	float m_dt;
 	sf::VideoMode m_videoMode;
 	sf::Clock m_clock;
 	sf::RenderWindow* m_window;
 	sf::Event m_event;
-
-	Scene::ID m_sceneState = Scene::PvP;
-
-	Scene* m_pvpScene;
+	SceneData m_sceneData;
+	std::stack<Scene*> m_scene;
 };
 

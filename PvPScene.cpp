@@ -2,9 +2,9 @@
 
 
 
-PvPScene::PvPScene(sf::VideoMode videoMode)
+PvPScene::PvPScene(SceneData* sceneData)
+	:Scene(sceneData)
 {
-	this->m_videoMode = videoMode;
 	initScene();
 }
 
@@ -29,24 +29,24 @@ void PvPScene::initScene()
 	m_scorePlayerTwo = new Text("Fonts/Pixeled.ttf", sf::Vector2f(1050.f, 200.f), 50);
 
 	m_playerOne->setPlayerId(Player::ID::PlayerOne);
-	m_playerOne->setPosition(sf::Vector2f(50.f, (m_videoMode.height / 2) - (m_playerOne->getBounds().height / 2)));
+	m_playerOne->setPosition(sf::Vector2f(50.f, (window->getSize().y / 2) - (m_playerOne->getBounds().height / 2)));
 	m_playerOne->setSpeed(500.f);
 
 	m_playerTwo->setPlayerId(Player::ID::PlayerTwo);
-	m_playerTwo->setPosition(sf::Vector2f(m_videoMode.width - 50 - m_playerTwo->getBounds().width, (m_videoMode.height / 2) - (m_playerOne->getBounds().height / 2)));
+	m_playerTwo->setPosition(sf::Vector2f(window->getSize().x - 50 - m_playerTwo->getBounds().width, (window->getSize().y / 2) - (m_playerOne->getBounds().height / 2)));
 	m_playerTwo->setSpeed(500.f);
 
-	m_ball->setPosition(sf::Vector2f(m_videoMode.width / 2.f, m_videoMode.height / 2.f));
+	m_ball->setPosition(sf::Vector2f(window->getSize().x / 2.f, window->getSize().y / 2.f));
 }
 
-void PvPScene::draw(sf::RenderWindow & target)
+void PvPScene::draw()
 {
-	m_background->draw(target);
-	m_playerOne->draw(target);
-	m_playerTwo->draw(target);
-	m_ball->draw(target);
-	m_scorePlayerOne->draw(target);
-	m_scorePlayerTwo->draw(target);
+	m_background->draw(*this->window);
+	m_playerOne->draw(*this->window);
+	m_playerTwo->draw(*this->window);
+	m_ball->draw(*this->window);
+	m_scorePlayerOne->draw(*this->window);
+	m_scorePlayerTwo->draw(*this->window);
 }
 
 void PvPScene::update(const float & dt)
@@ -70,7 +70,3 @@ void PvPScene::update(const float & dt)
 	
 }
 
-Scene::ID PvPScene::getId()
-{
-	return id;
-}

@@ -9,14 +9,12 @@
 class PvPScene : public Scene
 {
 public:
-	PvPScene(sf::VideoMode videoMode);
+	PvPScene(SceneData* sceneData);
 	~PvPScene();
 
-	void draw(sf::RenderWindow& target) override;
+	void draw() override;
 	void update(const float& dt) override;
-	ID getId();
 
-	ID id = Scene::PvP;
 
 private:
 	void initScene();
@@ -28,7 +26,6 @@ private:
 	Text* m_scorePlayerOne;
 	Text* m_scorePlayerTwo;
 
-	sf::VideoMode m_videoMode;
 	Background* m_background = nullptr;
 	Player* m_playerOne = nullptr;
 	Player* m_playerTwo = nullptr;

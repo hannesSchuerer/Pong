@@ -8,13 +8,21 @@ Game::Game()
 	m_window->setFramerateLimit(60);
 
 	initVariables();
+	initSceneData();
+	initScene();
 }
 
 
 Game::~Game()
 {
 	delete m_window;
-	delete m_pvpScene;
+	
+	while (!this->m_scene.empty())
+	{
+		delete this->m_scene.top();
+		m_scene.pop();
+	}
+
 }
 
 void Game::run()
@@ -30,13 +38,9 @@ void Game::run()
 
 void Game::update()
 {
-	switch (m_sceneState)
+	if (!this->m_scene.empty())
 	{
-	case Scene::PvP:
-		m_pvpScene->update(m_dt);
-		break;
-	case Scene::Menue:
-		break;
+		this->m_scene.top()->update(m_dt);
 	}
 }
 
@@ -44,13 +48,9 @@ void Game::render()
 {
 	m_window->clear();
 
-	switch (m_sceneState)
+	if (!this->m_scene.empty())
 	{
-	case Scene::PvP:
-		m_pvpScene->draw(*m_window);
-		break;
-	case Scene::Menue:
-		break;
+		this->m_scene.top()->draw();
 	}
 
 	m_window->display();
@@ -76,5 +76,16 @@ void Game::updateEvent()
 
 void Game::initVariables()
 {
-	m_pvpScene = new PvPScene(m_videoMode);
+
+}
+
+void Game::initSceneData()
+{
+	m_sceneData.scene = &m_scene;
+	m_sceneData.window = m_window;
+}
+
+void Game::initScene()
+{
+	m_scene.push(new MenueScene(&m_sceneData));
 }
