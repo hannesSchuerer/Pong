@@ -3,13 +3,14 @@
 MenueScene::MenueScene(SceneData* sceneData)
 	:Scene(sceneData)
 {
-	this->m_text = new Text("Fonts/Pixeled.ttf", sf::Vector2f(window->getSize().x/2.f, window->getSize().y / 2.f), 50);
+	this->m_textGameName = new Text("Fonts/Pixeled.ttf", sf::Vector2f(window->getSize().x/2.f, window->getSize().y / 2.f), 50);
+	this->m_textPlayPvP = new Text("Fonts/Pixeled.ttf", sf::Vector2f(window->getSize().x / 2.f, (window->getSize().y / 2.f)+100), 50);
 }
 
 
 MenueScene::~MenueScene()
 {
-	delete m_text;
+	delete m_textGameName;
 }
 
 void MenueScene::update(const float & dt)
@@ -18,10 +19,14 @@ void MenueScene::update(const float & dt)
 	{
 		scene->push(new PvPScene(sceneData));
 	}
-	this->m_text->update("Pong");
+	this->m_textGameName->update("Pong");
+	this->m_textPlayPvP->update("(P) PVP");
 }
 
 void MenueScene::draw()
 {
-	this->m_text->draw(*window);
+	this->m_textGameName->draw(*window);
+	this->m_textPlayPvP->draw(*window);
 }
+
+

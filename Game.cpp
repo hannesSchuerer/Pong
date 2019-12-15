@@ -41,6 +41,13 @@ void Game::update()
 	if (!this->m_scene.empty())
 	{
 		this->m_scene.top()->update(m_dt);
+
+		if (this->m_scene.top()->getQuit())
+		{
+			this->m_scene.top()->endScene();
+			delete this->m_scene.top();
+			this->m_scene.pop();
+		}
 	}
 }
 

@@ -15,7 +15,7 @@ public:
 
 private:
 
-	Text* m_text;
-
+	Text* m_textGameName;
+	Text* m_textPlayPvP;
 };
 

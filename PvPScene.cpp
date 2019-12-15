@@ -39,6 +39,7 @@ void PvPScene::initScene()
 	m_ball->setPosition(sf::Vector2f(window->getSize().x / 2.f, window->getSize().y / 2.f));
 }
 
+
 void PvPScene::draw()
 {
 	m_background->draw(*this->window);
@@ -56,6 +57,11 @@ void PvPScene::update(const float & dt)
 
 	m_scorePlayerOne->update(std::to_string(m_ball->scorePlayerOne));
 	m_scorePlayerTwo->update(std::to_string(m_ball->scorePlayerTwo));
+
+	if (m_ball->scorePlayerTwo > 9 || m_ball->scorePlayerOne > 9)
+	{
+		quit = true;
+	}
 
 	if (m_firstStart)
 	{

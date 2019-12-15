@@ -23,4 +23,5 @@ void Text::draw(sf::RenderWindow & target)
 void Text::update(std::string text)
 {
 	m_text.setString(text);
+	m_text.setOrigin(sf::Vector2f(m_text.getGlobalBounds().width / 2.f, m_text.getGlobalBounds().height / 2.f));
 }
