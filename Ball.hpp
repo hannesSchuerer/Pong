@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Player.hpp"
+#include "Random.hpp" 
 
 class Ball
 {
@@ -18,6 +19,8 @@ public:
 
 private:
 
+	Random m_random;
+
 	void normalizeVector(sf::Vector2f& vector);
 
 	bool m_ballOut = false;
@@ -26,13 +29,17 @@ private:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 
-	float m_maxVectorUp = -0.71f;
-	float m_maxVectorDown = 0.71f;
+	float m_maxVectorUp = -0.6f;
+	float m_maxVectorDown = 0.6f;
+
+	float m_vectorUp;
+	float m_vectorDown;
+
 	sf::FloatRect m_hitResult;
 	sf::FloatRect m_middle = sf::FloatRect(sf::Vector2f(1400.f / 2.f, 800.f / 2.f), sf::Vector2f(1.f, 1.f));
 
 	sf::Vector2f m_direction;
-	const float m_speed = 800.f;
+	const float m_speed = 1000.f;
 	float m_relativeHit;
 };
 

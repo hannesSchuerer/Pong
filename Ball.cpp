@@ -14,6 +14,8 @@ Ball::Ball()
 	
 	m_direction = sf::Vector2f(1.f, 0);
 	m_direction *= m_speed;
+	m_vectorUp = (m_random.getRandomNumber(60, 10) / 100.f)*-1;
+	m_vectorDown = m_random.getRandomNumber(60, 10) / 100.f;
 }
 
 
@@ -35,10 +37,17 @@ void Ball::update(const float & dt, Player* playerOne, Player* playerTwo)
 {
 	m_sprite.move(m_direction*dt);
 	
-	if ((m_sprite.getPosition().y + m_sprite.getGlobalBounds().height / 2 <= 0)|| (m_sprite.getPosition().y + m_sprite.getGlobalBounds().height / 2 >= 800))
+	if ((m_sprite.getPosition().y + m_sprite.getGlobalBounds().height / 2 <= 0))
 	{
+		m_sprite.setPosition(sf::Vector2f(m_sprite.getPosition().x, 2));
 		m_direction.y *= -1;
 	}	
+
+	if ((m_sprite.getPosition().y + m_sprite.getGlobalBounds().height / 2 >= 800))
+	{
+		m_sprite.setPosition(sf::Vector2f(m_sprite.getPosition().x, 790));
+		m_direction.y *= -1;
+	}
 
 	if (m_sprite.getPosition().x < -100)
 	{
@@ -46,7 +55,7 @@ void Ball::update(const float & dt, Player* playerOne, Player* playerTwo)
 		m_ballOut = true;
 		m_direction = sf::Vector2f(1400.f/2.f, 800.f/2.f)-m_sprite.getPosition();
 		normalizeVector(m_direction);
-		m_direction *= m_speed;
+		m_direction *= 800.f;
 	}
 
 	if (m_sprite.getPosition().x > 1500)
@@ -55,7 +64,7 @@ void Ball::update(const float & dt, Player* playerOne, Player* playerTwo)
 		m_ballOut = true;
 		m_direction = sf::Vector2f(1400.f / 2.f, 800.f / 2.f) - m_sprite.getPosition();
 		normalizeVector(m_direction);
-		m_direction *= m_speed;
+		m_direction *= 800.f;
 	}
 
 	if (m_sprite.getGlobalBounds().intersects(m_middle) && m_ballOut)
@@ -80,7 +89,11 @@ void Ball::update(const float & dt, Player* playerOne, Player* playerTwo)
 		{
 			normalizeVector(m_direction);
 			m_direction.x = 1.f;
-			m_direction.y += m_maxVectorUp;
+			m_direction.y += m_vectorUp;
+
+			if (m_direction.y > m_maxVectorUp)
+				m_direction.y = m_maxVectorUp;
+
 			normalizeVector(m_direction);
 			m_direction *= m_speed;
 		}
@@ -88,10 +101,17 @@ void Ball::update(const float & dt, Player* playerOne, Player* playerTwo)
 		{
 			normalizeVector(m_direction);
 			m_direction.x = 1.f;
-			m_direction.y += m_maxVectorDown;
+			m_direction.y += m_vectorDown;
+
+			if (m_direction.y < m_maxVectorDown)
+				m_direction.y = m_maxVectorDown;
+
 			normalizeVector(m_direction);
 			m_direction *= m_speed;
 		}
+
+		m_vectorUp = (m_random.getRandomNumber(60, 10) / 100.f)*-1;
+		m_vectorDown = m_random.getRandomNumber(60, 10) / 100.f;
 	
 	}
 		
@@ -103,7 +123,11 @@ void Ball::update(const float & dt, Player* playerOne, Player* playerTwo)
 		{
 			normalizeVector(m_direction);
 			m_direction.x = -1.f;
-			m_direction.y += m_maxVectorUp;
+			m_direction.y += m_vectorUp;
+
+			if (m_direction.y > m_maxVectorUp)
+				m_direction.y = m_maxVectorUp;
+
 			normalizeVector(m_direction);
 			m_direction *= m_speed;
 		}
@@ -111,10 +135,18 @@ void Ball::update(const float & dt, Player* playerOne, Player* playerTwo)
 		{
 			normalizeVector(m_direction);
 			m_direction.x = -1.f;
-			m_direction.y += m_maxVectorDown;
+			m_direction.y += m_vectorDown;
+
+			if (m_direction.y < m_maxVectorDown)
+				m_direction.y = m_maxVectorDown;
+
 			normalizeVector(m_direction);
 			m_direction *= m_speed;
 		}
+
+		m_vectorUp = (m_random.getRandomNumber(60, 10) / 100.f)*-1;
+		m_vectorDown = m_random.getRandomNumber(60, 10) / 100.f;
+
 	}
 
 }
